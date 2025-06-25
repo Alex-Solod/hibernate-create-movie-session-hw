@@ -12,10 +12,6 @@ public class Main {
         Injector injector = Injector.getInstance("mate.academy");
         MovieService movieService = (MovieService) injector
                 .getInstance(MovieService.class);
-        MovieSessionService movieSessionService = (MovieSessionService) injector
-                .getInstance(MovieSessionService.class);
-        CinemaHallService cinemaHallService = (CinemaHallService) injector
-                .getInstance(CinemaHallService.class);
 
         Movie fastAndFurious = new Movie("Fast and Furious");
         fastAndFurious.setDescription("An action film about street racing, "
@@ -23,12 +19,16 @@ public class Main {
         movieService.add(fastAndFurious);
         System.out.println(movieService.get(fastAndFurious.getId()));
         movieService.getAll().forEach(System.out::println);
-        
+
         // Тестирование других сервисов
         System.out.println("Testing CinemaHall service:");
+        CinemaHallService cinemaHallService = (CinemaHallService) injector
+                .getInstance(CinemaHallService.class);
         cinemaHallService.getAll().forEach(System.out::println);
-        
+
         System.out.println("Testing MovieSession service:");
+        MovieSessionService movieSessionService = (MovieSessionService) injector
+                .getInstance(MovieSessionService.class);
         movieSessionService.findAvailableSessions(1L, LocalDate.now())
                 .forEach(System.out::println);
     }
